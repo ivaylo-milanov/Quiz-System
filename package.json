@@ -1,0 +1,19 @@
+{
+  "name": "quiz-system-fever",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "lit-html": "^2.5.0",
+    "mocha": "^10.2.0",
+    "page": "^1.11.6",
+    "parse": "^3.5.1",
+    "playwright-chromium": "^1.29.1"
+  }
+}

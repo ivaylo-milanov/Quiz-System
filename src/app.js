@@ -1,6 +1,6 @@
+import { page } from './lib.js';
 import { middleWare } from './nav.js';
 import { showWelcome } from './views/welcome.js';
-import { page } from './lib.js';
 
 const appId = 'fKI0J7nzgCo7WUi5in6zOApnK0tqr3fRMWCvOnUO';
 const jsId = '4dJCyhdUE83T3kjcXzQgV2N8KgPBH9IXV1u1wv9v';

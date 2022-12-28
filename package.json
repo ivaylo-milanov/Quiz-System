@@ -1,19 +1,23 @@
 {
-  "name": "quiz-system-fever",
+  "name": "quiz-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is my first project. It's a quiz system, coded on HTML, CSS and JS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivaylo-milanov/Quiz-System.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivaylo-milanov/Quiz-System/issues"
+  },
+  "homepage": "https://github.com/ivaylo-milanov/Quiz-System#readme",
   "dependencies": {
-    "chai": "^4.3.7",
     "lit-html": "^2.5.0",
-    "mocha": "^10.2.0",
-    "page": "^1.11.6",
-    "parse": "^3.5.1",
-    "playwright-chromium": "^1.29.1"
+    "page": "^1.11.6"
   }
 }

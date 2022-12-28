@@ -22,26 +22,26 @@
         // When the single page app is loaded further down in this file,
         // the correct url will be waiting in the browser's history for
         // the single page app to route accordingly.
-        (function(l) {
-          if (l.search[1] === '/' ) {
-            var decoded = l.search.slice(1).split('&').map(function(s) { 
-              return s.replace(/~and~/g, '&')
-            }).join('?');
-            window.history.replaceState(null, null,
-                l.pathname.slice(0, -1) + decoded + l.hash
-            );
-          }
+        (function (l) {
+            if (l.search[1] === '/') {
+                var decoded = l.search.slice(1).split('&').map(function (s) {
+                    return s.replace(/~and~/g, '&')
+                }).join('?');
+                window.history.replaceState(null, null,
+                    l.pathname.slice(0, -1) + decoded + l.hash
+                );
+            }
         }(window.location))
-      </script>
-      <!-- End Single Page Apps for GitHub Pages -->
-
+        </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
     <script src="/src/app.js" type="module"></script>
 </head>
 
 <body>
 
     <div id="container">
-
+        
         <header id="titlebar">
             <nav>
                 <a class="logotype" href="/"><i class="fas fa-question-circle"></i><i
@@ -114,41 +114,7 @@
                 </div>
             </section>
 
-            <section id="welcome">
-
-                <div class="hero layout">
-                    <div class="splash right-col"><i class="fas fa-clipboard-list"></i></div>
-                    <div class="glass welcome">
-                        <h1>Welcome to Quiz Fever!</h1>
-                        <p>Home to 157 quizes in 12 topics. <a href="#">Browse all quizes</a>.</p>
-                        <a class="action cta" href="#">Sign in to create a quiz</a>
-                    </div>
-                </div>
-
-                <div class="pad-large alt-page">
-                    <h2>Our most recent quiz:</h2>
-
-                    <article class="preview layout">
-                        <div class="right-col">
-                            <a class="action cta" href="#">View Quiz</a>
-                        </div>
-                        <div class="left-col">
-                            <h3>Extensible Markup Language</h3>
-                            <span class="quiz-topic">Topic: Languages</span>
-                            <div class="quiz-meta">
-                                <span>15 questions</span>
-                                <span>|</span>
-                                <span>Taken 54 times</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <div>
-                        <a class="action cta" href="#">Browse all quizes</a>
-                    </div>
-                </div>
-
-            </section>
+            <!-- welcome -->
 
             <section id="browse">
                 <header class="pad-large">

@@ -1,7 +1,7 @@
-import { html, render } from "../lib/lit-html.js";
+import { html } from "../lib/lit-html.js";
 
 export function showWelcome(ctx) {
-    render(welcomeTemplate(), document.querySelector('main'));
+    ctx.render(welcomeTemplate());
 }
 
 function welcomeTemplate() {
@@ -13,7 +13,7 @@ function welcomeTemplate() {
             <div class="glass welcome">
                 <h1>Welcome to Quiz Fever!</h1>
                 <p>Home to 157 quizes in 12 topics. <a href="#">Browse all quizes</a>.</p>
-                <a class="action cta" href="#">Sign in to create a quiz</a>
+                <a class="action cta" href="/login">Sign in to create a quiz</a>
             </div>
         </div>
     

@@ -1,10 +1,11 @@
 import { html } from "../lib/lit-html.js";
 
 export function showProfile(ctx) {
-    ctx.render(profileTemplate());
+    const user = ctx.user;
+    ctx.renderView(profileTemplate(user));
 }
 
-function profileTemplate() {
+function profileTemplate(user) {
     return html`
     <section id="profile">
         <header class="pad-large">
@@ -16,11 +17,11 @@ function profileTemplate() {
                 <h2>Profile Details</h2>
                 <p>
                     <span class="profile-info">Username:</span>
-                    Peter
+                    ${user.username}
                 </p>
                 <p>
                     <span class="profile-info">Email:</span>
-                    peter@mail.cx
+                    ${user.email}
                 </p>
                 <h2>Your Quiz Results</h2>
                 <table class="quiz-results">

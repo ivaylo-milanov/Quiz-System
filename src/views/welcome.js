@@ -1,7 +1,7 @@
 import { html } from "../lib/lit-html.js";
 
 export function showWelcome(ctx) {
-    ctx.render(welcomeTemplate());
+    ctx.renderView(welcomeTemplate());
 }
 
 function welcomeTemplate() {

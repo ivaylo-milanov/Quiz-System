@@ -1,7 +1,7 @@
 import { html } from "../lib/lit-html.js";
 
 export function showCreate(ctx) {
-    ctx.render(createTemplate());
+    ctx.renderView(createTemplate());
 }
 
 function createTemplate() {

@@ -3,7 +3,7 @@ import { html } from "../lib/lit-html.js";
 import { createSubmitHandler } from "../utils.js";
 
 export function showLogin(ctx) {
-    ctx.render(loginTemplate(createSubmitHandler(onLogin, ctx)));
+    ctx.renderView(loginTemplate(createSubmitHandler(onLogin, ctx)));
 }
 
 async function onLogin({email, password}, ctx) {

@@ -3,7 +3,7 @@ import { html } from "../lib/lit-html.js";
 import { createSubmitHandler } from "../utils.js";
 
 export function showRegister(ctx) {
-    ctx.render(registerTemplate(createSubmitHandler(onRegister, ctx)));
+    ctx.renderView(registerTemplate(createSubmitHandler(onRegister, ctx)));
 }
 
 async function onRegister({email, username, password, repass}, ctx) {

@@ -1,22 +1,13 @@
 import { html, render } from "./lib/lit-html.js";
-import { getUserData, removeUserData } from "./utils.js";
-
-const root = document.querySelector('main');
-
-export function middleWare(ctx, next) {
-    ctx.render = (content) => render(content, root);
-    next();
-}
+import { removeUserData } from "./utils.js";
 
 function navTemplate(ctx) {
-    const user = getUserData();
-
     return html`
     <a class="logotype" href="/"><i class="fas fa-question-circle"></i><i class="merge fas fa-check-circle"></i><span>Quiz
             Fever</span></a>
     <div class="navigation">
         <a class="nav-link" href="/browse">Browse</a>
-        ${user 
+        ${ctx.user 
         ? html`
         <div id="user-nav">
             <a class="nav-link" href="/create">Create</a>

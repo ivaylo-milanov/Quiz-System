@@ -1,5 +1,4 @@
 import { html } from "../lib/lit-html.js";
-import { removeUserData } from "../utils.js";
 
 export function navTemplate(hasUser) {
     return html`

@@ -1,11 +1,14 @@
+import { getAuthorQuizzes } from "../api/data.js";
 import { html } from "../lib/lit-html.js";
+import { quizCardWithEditAndDel } from "./quizTemplate.js";
 
-export function showProfile(ctx) {
+export async function showProfile(ctx) {
     const user = ctx.user;
-    ctx.renderView(profileTemplate(user));
+    const {results: quizzes} = await getAuthorQuizzes(user.objectId);
+    ctx.renderView(profileTemplate(user, quizzes));
 }
 
-function profileTemplate(user) {
+function profileTemplate(user, quizzes) {
     return html`
     <section id="profile">
         <header class="pad-large">
@@ -42,41 +45,7 @@ function profileTemplate(user) {
         </header>
     
         <div class="pad-large alt-page">
-    
-            <article class="preview layout">
-                <div class="right-col">
-                    <a class="action cta" href="#">View Quiz</a>
-                    <a class="action cta" href="#"><i class="fas fa-edit"></i></a>
-                    <a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
-                </div>
-                <div class="left-col">
-                    <h3><a class="quiz-title-link" href="#">Extensible Markup Language</a></h3>
-                    <span class="quiz-topic">Topic: Languages</span>
-                    <div class="quiz-meta">
-                        <span>15 questions</span>
-                        <span>|</span>
-                        <span>Taken 54 times</span>
-                    </div>
-                </div>
-            </article>
-    
-            <article class="preview layout">
-                <div class="right-col">
-                    <a class="action cta" href="#">View Quiz</a>
-                    <a class="action cta" href="#"><i class="fas fa-edit"></i></a>
-                    <a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
-                </div>
-                <div class="left-col">
-                    <h3><a class="quiz-title-link" href="#">RISC Architecture</a></h3>
-                    <span class="quiz-topic">Topic: Hardware</span>
-                    <div class="quiz-meta">
-                        <span>10 questions</span>
-                        <span>|</span>
-                        <span>Taken 107 times</span>
-                    </div>
-                </div>
-            </article>
-    
+            ${quizzes.map(quizCardWithEditAndDel)}
         </div>
     
     </section>`

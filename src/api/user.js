@@ -1,5 +1,5 @@
 import * as api from '../api/api.js';
-import { removeUserData, setUserData } from '../utils.js';
+import { setUserData } from '../utils.js';
 
 const endpoint = {
     register: '/users',

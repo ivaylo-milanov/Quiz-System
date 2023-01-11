@@ -1,40 +1,16 @@
 import { getFilteredQuizzes, getQuizzes } from "../api/data.js";
 import { html } from "../lib/lit-html.js";
 import { repeat } from "../lib/directives/repeat.js";
-import { createSubmitHandler } from "../utils.js";
+import { quizCard, topicTemplate } from "../views/quizTemplate.js";
+
+let allQuizzes;
 
 export async function showBrowser(ctx) {
-    ctx.renderView(loaderTemplate());
-    const { results: quizzes } = await getQuizzes();
-    const topics = Array.from(new Set(quizzes.map(x => x.topic)));
-    ctx.renderView(browserTemplate(quizzes, createSubmitHandler(onBrowse), topics));
+    allQuizzes = ctx.quizzes;
+    ctx.renderView(browserTemplate(browseSubmitHandler(onBrowse, ctx), ctx.topics));
 }
 
-function loaderTemplate() {
-    return html`
-    <div class="pad-large alt-page async">
-        <div class="sk-cube-grid">
-            <div class="sk-cube sk-cube1"></div>
-            <div class="sk-cube sk-cube2"></div>
-            <div class="sk-cube sk-cube3"></div>
-            <div class="sk-cube sk-cube4"></div>
-            <div class="sk-cube sk-cube5"></div>
-            <div class="sk-cube sk-cube6"></div>
-            <div class="sk-cube sk-cube7"></div>
-            <div class="sk-cube sk-cube8"></div>
-            <div class="sk-cube sk-cube9"></div>
-        </div>
-    </div>`
-}
-
-function quizzesTemplate(quizzes) {
-    return html`
-    ${quizzes.length > 0 
-        ? repeat(quizzes, x => x.objectId, quizCard)
-        : noRecords()}`
-}
-
-function browserTemplate(quizzes, handler, topics) {
+function browserTemplate(handler, topics, quizzes = allQuizzes) {
     return html`
     <section id="browse">
         <header class="pad-large">
@@ -44,9 +20,9 @@ function browserTemplate(quizzes, handler, topics) {
                     <option value="all">All Categories</option>
                     ${topics.map(topicTemplate)}
                 </select>
-                <input class="input submit action" type="submit" value="Filter Quizes">
+                <input class="input submit action" type="submit" value="Filter Quizzes">
             </form>
-            <h1>All quizes</h1>
+            <h1>All quizzes</h1>
         </header>
     
         <div class="pad-large alt-page">
@@ -55,35 +31,42 @@ function browserTemplate(quizzes, handler, topics) {
     </section>`
 }
 
-function quizCard(data) {
+function quizzesTemplate(quizzes) {
     return html`
-    <article class="preview layout">
-        <div class="right-col">
-            <a class="action cta" href="#">View Quiz</a>
-        </div>
-        <div class="left-col">
-            <h3><a class="quiz-title-link" href="#">${data.title}</a></h3>
-            <span class="quiz-topic">Topic: ${data.topic}</span>
-            <div class="quiz-meta">
-                <span>${data.questionCount} questions</span>
-                <span>|</span>
-                <span>Taken 189 times</span>
-            </div>
-        </div>
-    </article>`
+    ${quizzes.length > 0 
+        ? repeat(quizzes, x => x.objectId, quizCard)
+        : noRecords()}`
 }
 
 function noRecords() {
     return html`<p>No Quizzes</p>`
 }
 
-function topicTemplate(topic) {
-    const value = topic.split(' ')[0].toLowerCase();
+async function onBrowse({query, topic}, ctx) {
+    let quizzes;
 
-    return html`<option value=${value}>${topic}</option>`
+    ctx.renderLoader();
+
+    if (topic === 'all') {
+        quizzes = await getQuizzes();
+    } else {
+        quizzes = await getFilteredQuizzes(topic);
+    }
+    
+    quizzes = quizzes.results
+        .filter(x => x.title.toLowerCase()
+        .includes(query.toLowerCase()))
+
+    ctx.renderView(browserTemplate(browseSubmitHandler(onBrowse, ctx), ctx.topics, quizzes));
 }
 
-async function onBrowse(data) {
-    console.log(data);
-    debugger;
+export function browseSubmitHandler(callback, ctx) {
+    return (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
+        
+        callback(data, ctx);
+    }
 }
+

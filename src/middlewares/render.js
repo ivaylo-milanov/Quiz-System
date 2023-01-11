@@ -1,9 +1,11 @@
 import { render } from "../lib/lit-html.js";
+import { loaderTemplate } from "../views/quizTemplate.js";
 
 export function middleWare(main, nav) {
     return function(ctx, next) {
         ctx.renderView = renderView;
         ctx.renderNav = renderNav;
+        ctx.renderLoader = renderLoader;
         next();
     }
 
@@ -13,5 +15,9 @@ export function middleWare(main, nav) {
 
     function renderNav(content) {
         render(content, nav);
+    }
+
+    function renderLoader() {
+        render(loaderTemplate(), main)
     }
 }

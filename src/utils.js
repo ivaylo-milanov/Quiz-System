@@ -9,7 +9,6 @@ export function createSubmitHandler(callback, ctx) {
         }
 
         callback(data, ctx);
-        event.target.reset();
     }
 }
 
@@ -23,4 +22,15 @@ export function setUserData(user) {
 
 export function removeUserData() {
     sessionStorage.removeItem('user');
+}
+
+export function createPointer(className, objectId) {
+    return {__type: "Pointer", className, objectId}
+}
+
+export function addOwner(data, objectId) {
+    const newData = Object.assign({}, data);
+    newData.host = createPointer('_User', objectId);
+
+    return newData;
 }

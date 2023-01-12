@@ -16,7 +16,7 @@ function welcomeTemplate(quizzes, ctx) {
             <h2>Our most recent quizzes:</h2>
             ${quizzes.map(quizCard)}
             <div>
-                <a class="action cta" href="/browse">Browse all quizes</a>
+                <a class="action cta" href="/browse">Browse all quizzes</a>
             </div>
         </div>`
         : html`
@@ -24,8 +24,8 @@ function welcomeTemplate(quizzes, ctx) {
             <div class="splash right-col"><i class="fas fa-clipboard-list"></i></div>
             <div class="glass welcome">
                 <h1>Welcome to Quiz Fever!</h1>
-                <p>Home to ${ctx.quizzes.length} quizes in ${ctx.topics.length} topics. <a href="/browse">Browse all
-                        quizes</a>.</p>
+                <p>Home to ${ctx.quizzes.length} quizzes in ${ctx.topics.length} topics. <a href="/browse">Browse all
+                        quizzes</a>.</p>
                 <a class="action cta" href="/login">Sign in to create a quiz</a>
             </div>
         </div>`}

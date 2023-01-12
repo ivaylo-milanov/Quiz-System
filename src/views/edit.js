@@ -1,19 +1,19 @@
-import { createQuiz } from "../api/data.js";
+import { createQuiz, editQuiz } from "../api/data.js";
 import { html } from "../lib/lit-html.js";
 import { createSubmitHandler } from "../utils.js";
 import { questionTemplate } from "./questionTemplate.js";
 
-export function showCreate(ctx) {
-    ctx.renderView(createTemplate(createSubmitHandler(onSubmit, ctx)));
+export function showEdit(ctx) {
+    ctx.renderView(editTemplate(createSubmitHandler(onSubmit, ctx), ctx.quiz));
 
     async function onSubmit({ title, topic, description, questionCount }) {
+        const id = ctx.params.id;
         questionCount = parseInt(questionCount);
-        const userId = ctx.user?.objectId;
-        const result = await createQuiz({ title, topic, description, questionCount }, userId);
-        ctx.page.redirect(`/browse`);
+        await editQuiz({ title, topic, description, questionCount }, id, ctx.user.objectId);
+        ctx.page.redirect(`/details/${id}`);
     }
 }
-function createTemplate(handler) {
+function editTemplate(handler, quiz) {
     return html`
     <section id="editor">
     
@@ -25,18 +25,18 @@ function createTemplate(handler) {
             <form @submit=${handler}>
                 <label class="editor-label layout">
                     <span class="label-col">Title:</span>
-                    <input class="input i-med" type="text" name="title"></label>
+                    <input class="input i-med" type="text" name="title" .value=${quiz.title}></label>
                 <label class="editor-label layout">
                     <span class="label-col">Topic:</span>
-                    <input class="input i-med" type="text" name="topic"></label>
+                    <input class="input i-med" type="text" name="topic" .value=${quiz.topic}></label>
                 </label>
                 <label class="editor-label layout">
                     <span class="label-col">Description:</span>
-                    <textarea class="input i-med" type="text" name="description"></textarea>
+                    <textarea class="input i-med" type="text" name="description" .value=${quiz.description}></textarea>
                 </label>
                 <label class="editor-label layout">
                     <span class="label-col">Question count:</span>
-                    <input class="input i-med" type="number" name="questionCount">
+                    <input class="input i-med" type="number" name="questionCount" .value=${quiz.questionCount}>
                 </label>
                 <input class="input submit action" type="submit" value="Save">
             </form>

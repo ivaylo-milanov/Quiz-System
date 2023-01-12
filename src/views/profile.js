@@ -1,4 +1,4 @@
-import { getAuthorQuizzes } from "../api/data.js";
+import { deleteQuiz, getAuthorQuizzes } from "../api/data.js";
 import { html } from "../lib/lit-html.js";
 import { quizCardWithEditAndDel } from "./quizTemplate.js";
 
@@ -41,12 +41,17 @@ function profileTemplate(user, quizzes) {
         </div>
     
         <header class="pad-large">
-            <h2>Quizes created by you</h2>
+            <h2>Quizzes created by you</h2>
         </header>
     
         <div class="pad-large alt-page">
-            ${quizzes.map(quizCardWithEditAndDel)}
+            ${quizzes.map(quizCardWithEditAndDel(onDelete))}
         </div>
     
     </section>`
+}
+
+async function onDelete(id) {
+    await deleteQuiz(id);
+    ctx.page.redirect('/me');
 }

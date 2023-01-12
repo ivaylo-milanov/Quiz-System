@@ -18,13 +18,14 @@ export function quizCard(data) {
     </article>`
 }
 
-export function quizCardWithEditAndDel(data) {
-    return html`
+export function quizCardWithEditAndDel(onDelete) {
+    return function (data) {
+        return html`
     <article class="preview layout">
         <div class="right-col">
             <a class="action cta" href="/details/${data.objectId}">View Quiz</a>
-            <a class="action cta" href="#"><i class="fas fa-edit"></i></a>
-            <a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
+            <a class="action cta" href="/edit/${data.objectId}"><i class="fas fa-edit"></i></a>
+            <a @click=${onDelete.bind(null, data.objectId)} class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
         </div>
         <div class="left-col">
             <h3><a class="quiz-title-link" href="#">${data.title}</a></h3>
@@ -36,6 +37,8 @@ export function quizCardWithEditAndDel(data) {
             </div>
         </div>
     </article>`
+    }
+
 }
 
 export function topicTemplate(topic) {

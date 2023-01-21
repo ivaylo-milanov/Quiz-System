@@ -1,7 +1,7 @@
 import { html } from "../../lib/lit-html.js";
-import { questionTemplate } from "./question.js";
+import { createQuestion } from "./question.js";
 
-const editorTemplate = (questions) => html`
+const template = (questions) => html`
 <section id="editor">
 
     <header class="pad-large">
@@ -12,7 +12,8 @@ const editorTemplate = (questions) => html`
         <form>
             <label class="editor-label layout">
                 <span class="label-col">Title:</span>
-                <input class="input i-med" type="text" name="title"></label>
+                <input class="input i-med" type="text" name="title">
+            </label>
             <label class="editor-label layout">
                 <span class="label-col">Topic:</span>
                 <select class="input i-med" name="topic">
@@ -21,6 +22,10 @@ const editorTemplate = (questions) => html`
                     <option value="hardware">Hardware</option>
                     <option value="software">Tools and Software</option>
                 </select>
+            </label>
+            <label class="editor-label layout">
+                <span class="label-col">Description:</span>
+                <textarea class="input i-med" type="text" name="description"></textarea>
             </label>
             <input class="input submit action" type="submit" value="Save">
         </form>
@@ -33,11 +38,8 @@ const editorTemplate = (questions) => html`
     ${questionList(questions)}
 </section>`;
 
-const questionList = (questions) => {
-    return html`
-    <div id="questions" class="pad-large alt-page">
-        ${questions.map((q, i) => questionTemplate(q, i + 1))}
-    </div>
+const questionList = (questions) => html`
+    ${questions.map((q, i) => createQuestion(q, i + 1))}
     
     <article class="editor-question">
         <div class="editor-input">
@@ -47,7 +49,6 @@ const questionList = (questions) => {
             </button>
         </div>
     </article>`;
-}
 
 const questions = [
     {
@@ -71,5 +72,5 @@ const questions = [
 ]
 
 export function showEditor(ctx) {
-    ctx.renderView(editorTemplate(questions));
+    ctx.renderView(template(questions));
 }

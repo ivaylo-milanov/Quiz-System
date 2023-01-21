@@ -2,8 +2,9 @@
   "name": "quiz-system",
   "version": "1.0.0",
   "description": "This is my first project. It's a quiz system, coded on HTML, CSS and JS.",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
+    "start": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/ivaylo-milanov/Quiz-System#readme",
   "dependencies": {
     "lit-html": "^2.5.0",
+    "lite-server": "^2.6.1",
     "page": "^1.11.6"
   }
 }
